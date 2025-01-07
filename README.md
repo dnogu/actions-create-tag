@@ -52,7 +52,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Create Git Tag
-        uses: your-username/create-tag-action@v1
+        uses: dnogu/create-tag-action@v1
         with:
           tag_name: "v1.2.3"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
