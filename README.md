@@ -52,7 +52,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Create Git Tag
-        uses: dnogu/actions-create-tag@v1
+        uses: makethenetgo/actions-create-tag@v1
         with:
           tag_name: "v1.2.3"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
