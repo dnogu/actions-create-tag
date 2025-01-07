@@ -1,0 +1,25 @@
+name: "Actions Create Tag"
+description: "A GitHub Action to create a Git tag."
+author: "dnogu"
+branding:
+  icon: "tag"
+  color: "blue"
+
+inputs:
+  tag_name:
+    description: "The tag name to create (e.g., v1.2.3)."
+    required: true
+  commitish:
+    description: "The commit SHA or branch name to tag. Defaults to the current workflow SHA."
+    required: false
+  GITHUB_TOKEN:
+    description: "GitHub token for authentication."
+    required: true
+
+outputs:
+  created_tag:
+    description: "The name of the tag that was created."
+
+runs:
+  using: "node20"
+  main: "dist/index.js"
