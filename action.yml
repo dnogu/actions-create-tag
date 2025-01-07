@@ -1,4 +1,4 @@
-name: "Actions Create Tag"
+name: "Github Actions - Create Tag"
 description: "A GitHub Action to create a Git tag."
 author: "dnogu"
 branding:
