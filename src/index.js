@@ -36,7 +36,7 @@ async function run() {
 
 // Function to validate the tag name format
 function isValidTagName(tagName) {
-  const tagRegex = /^v?\d+\.\d+\.\d+(-[a-zA-Z0-9_.]+)?$/; // Example: v1.2.3, 1.2.3-beta
+  const tagRegex = /^(v|Test-)?\d+\.\d+\.\d+(-[a-zA-Z0-9_.]+)?$/; // Example: v1.2.3, Test-1.2.3, 1.2.3-beta
   return tagRegex.test(tagName);
 }
 
