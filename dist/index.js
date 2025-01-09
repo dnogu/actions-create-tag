@@ -34503,10 +34503,17 @@ async function run() {
     // Create tag
     const createdTag = await createTag(octokit, owner, repo, tagName, commitish);
 
-    // Extract tag name and set output
-    const createdTagName = createdTag.ref.replace("refs/tags/", "");
-    core.setOutput("created_tag", createdTagName);
-    core.info(`Tag "${createdTagName}" created successfully at commit "${commitish}".`);
+    // Debugging: Log the createdTag object
+    core.info(`Created tag response: ${JSON.stringify(createdTag)}`);
+
+    // Extract tag name from the ref and set output
+    if (createdTag && createdTag.ref) {
+      const createdTagName = createdTag.ref.replace("refs/tags/", ""); // Extract tag name
+      core.setOutput("created_tag", createdTagName);
+      core.info(`Tag "${createdTagName}" created successfully at commit "${commitish}".`);
+    } else {
+      throw new Error("The tag creation response did not contain a valid 'ref' property.");
+    }
   } catch (error) {
     core.setFailed(error.message);
   }
@@ -34544,12 +34551,13 @@ async function doesTagExist(octokit, owner, repo, tagName) {
 // Function to create a new tag
 async function createTag(octokit, owner, repo, tagName, commitish) {
   try {
-    return await octokit.rest.git.createRef({
+    const response = await octokit.rest.git.createRef({
       owner,
       repo,
       ref: `refs/tags/${tagName}`,
       sha: commitish,
     });
+    return response.data; // Return the response data
   } catch (error) {
     throw new Error(`Failed to create tag "${tagName}": ${error.message}`);
   }
