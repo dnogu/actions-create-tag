@@ -31,10 +31,21 @@ jobs:
 
       # Step 3: Use the Create Tag Action
       - name: Use Create Tag Action
+        id: test_created_tag
         uses: ./
         with:
-          tag_name: "Test-1.2.3"
+          tag_name: Test-1.2.3
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check and Print the Output
+        run: |
+          if [ "${{ steps.test_created_tag.outputs.created_tag }}" == "Test-1.2.3" ]; then
+            echo "The created tag is Test-1.2.3."
+          else
+            echo "The created tag is not Test-1.2.3. It is: ${{ steps.test_created_tag.outputs.created_tag }}"
+            exit 1
+          fi
+        shell: bash
 
       # Step 4: Delete the tag if it exists
       - name: Clean Up Tag
