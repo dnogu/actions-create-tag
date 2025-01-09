@@ -34503,8 +34503,10 @@ async function run() {
     // Create tag
     const createdTag = await createTag(octokit, owner, repo, tagName, commitish);
 
-    core.info(`Tag "${tagName}" created successfully at commit "${commitish}".`);
-    core.setOutput("created_tag", createdTag.ref);
+    // Extract tag name and set output
+    const createdTagName = createdTag.ref.replace("refs/tags/", "");
+    core.setOutput("created_tag", createdTagName);
+    core.info(`Tag "${createdTagName}" created successfully at commit "${commitish}".`);
   } catch (error) {
     core.setFailed(error.message);
   }
